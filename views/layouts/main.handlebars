@@ -5,28 +5,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, intitial-scale=1.0">
     <title>Tech Blog</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" type="text/css" href="/css/jass.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/dashboard">Dashboard</a>
+<body class="font-sans bg-gray-100">
+
+    <header class="bg-blue-500 text-white p-4">
+        <nav class="flex items-center justify-between">
+            <a href="/" class="text-xl font-bold">Home</a>
+            <a href="/dashboard" class="text-xl">Dashboard</a>
+            
             {{#if loggedIn}}
             <button id="logout" class="btn-no-style">Logout</button>
             {{else}}
-            <a href="/login">Login</a>
+            <a href="/login" class="text-xl">Login</a>
             {{/if}}
         </nav>
-        <h1>Welcome to the Tech Blog</h1>
+        <h1 class="text-4xl font-bold mt-2">Welcome to the Tech Blog</h1>
     </header>
-    <main>
+
+    <main class="container mx-auto mt-6">
         <div class="posts">
             {{{body}}}
         </div>
     </main>
+
     {{#if loggedIn}}
     <script src="/js/logout.js"></script>
     {{/if}}
