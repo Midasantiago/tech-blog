@@ -8,12 +8,18 @@ router.get('/', async ( req, res) => {
             include: [
                 {
                     model: User,
+                    as: 'user',
                     attributes: ['username'],
                 },
             ],
         });
 
-        const posts = postData.map((post) => post.get({ plain: true }));
+        const posts = postData.map((post) => {
+            return {
+                ...post.get({ plain: true }),
+                username: post.user.username
+            };
+        });
 
         res.render('homepage', {
             posts,
@@ -61,7 +67,7 @@ router.get('/post/:id', async (req, res) => {
 
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
-        const userData = await User.findByPk(req.session.id, {
+        const userData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] },
             include: [{ model: Post }],
         });
